@@ -16,7 +16,7 @@ function formatMoney(value){
   return value.toLocaleString("vi-VN") + "đ";
 }
 
-function renderTable(data = violations) {
+function renderTable(dataList = data){
   tableBody.innerHTML = "";
 
   data.forEach((item, index) => {
@@ -25,7 +25,7 @@ function renderTable(data = violations) {
         <td>${index + 1}</td>
         <td>${item.employee}</td>
         <td>${item.feature}</td>
-        <td>${item.errorType}</td>
+        <td>${item.type}</td>
         <td>${Number(item.fine).toLocaleString()}đ</td>
         <td>${item.date}</td>
         <td>
@@ -108,14 +108,17 @@ function filterData(){
 
 function deleteViolation(index) {
   if (confirm("Xóa vi phạm này?")) {
-    violations.splice(index, 1);
+
+    data.splice(index, 1);
 
     localStorage.setItem(
-      "violations",
-      JSON.stringify(violations)
+      "fineData",
+      JSON.stringify(data)
     );
 
-    renderAll();
+    renderTable(data);
+    updateStats();
+    updateCharts();
   }
 }
 
