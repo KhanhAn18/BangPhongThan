@@ -1,0 +1,152 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bảng Thống Kê Nộp Phạt</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- HEADER -->
+      <header class="topbar">
+        <div>
+          <h1>BẢNG THỐNG KÊ NỘP PHẠT NỘI BỘ</h1>
+          <p>Quản lý vi phạm chức năng & lỗi hệ thống</p>
+        </div>
+
+        <div class="topbar-right">
+          <div id="currentDate"></div>
+
+          <button class="primary-btn" id="openModalBtn">+ Thêm vi phạm</button>
+        </div>
+      </header>
+
+      <!-- STATS -->
+      <section class="stats-grid">
+        <div class="card">
+          <span>Tổng tiền phạt</span>
+          <h2 id="totalFine">0đ</h2>
+        </div>
+
+        <div class="card">
+          <span>Tổng lỗi</span>
+          <h2 id="totalErrors">0</h2>
+        </div>
+
+        <div class="card">
+          <span>Top bị phạt</span>
+          <h2 id="topUser">-</h2>
+        </div>
+
+        <div class="card">
+          <span>Chức năng lỗi nhiều</span>
+          <h2 id="topFeature">-</h2>
+        </div>
+      </section>
+
+      <!-- FILTER -->
+      <section class="filter-section">
+        <input type="text" id="searchInput" placeholder="Tìm nhân viên..." />
+
+        <select id="statusFilter">
+          <option value="">Tất cả trạng thái</option>
+          <option value="Đã nộp">Đã nộp</option>
+          <option value="Chưa nộp">Chưa nộp</option>
+        </select>
+
+        <input type="text" id="typeFilter" placeholder="Lọc loại lỗi..." />
+      </section>
+
+      <!-- CHARTS -->
+      <section class="charts-grid">
+        <div class="chart-card">
+          <h3>Tiền phạt theo nhân viên</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <h3>Tỷ lệ loại lỗi</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+      </section>
+
+      <!-- TABLE -->
+      <section class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Nhân viên</th>
+              <th>Chức năng</th>
+              <th>Loại lỗi</th>
+              <th>Mức phạt</th>
+              <th>Ngày</th>
+              <th>Trạng thái</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+
+          <tbody id="tableBody"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal hidden" id="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Thêm vi phạm</h2>
+
+          <button class="close-btn" id="closeModalBtn">×</button>
+        </div>
+
+        <div class="form-group">
+          <label>Nhân viên</label>
+          <input type="text" id="employeeInput" />
+        </div>
+
+        <div class="form-group">
+          <label>Chức năng</label>
+          <input type="text" id="featureInput" />
+        </div>
+
+        <div class="form-group">
+          <label>Loại lỗi</label>
+
+          <input
+            type="text"
+            id="errorTypeInput"
+            placeholder="Ví dụ: Deploy lỗi production"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Mức phạt</label>
+          <input type="number" id="fineInput" />
+        </div>
+
+        <div class="form-group">
+          <label>Ngày</label>
+          <input type="date" id="dateInput" />
+        </div>
+
+        <div class="form-group">
+          <label>Trạng thái</label>
+          <select id="statusInput">
+            <option>Đã nộp</option>
+            <option>Chưa nộp</option>
+          </select>
+        </div>
+
+        <button class="primary-btn full-width" id="saveBtn">Lưu vi phạm</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
